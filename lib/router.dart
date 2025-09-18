@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tiktokfinalproject/common/main_navigation/main_navigation_screen.dart';
 import 'package:tiktokfinalproject/features/authentication/repos/authentication_repo.dart';
 import 'package:tiktokfinalproject/features/authentication/views/login_screen.dart';
 import 'package:tiktokfinalproject/features/authentication/views/sign_up_screen.dart';
@@ -9,7 +10,6 @@ final routerProvider = Provider((ref) {
     initialLocation: "/home",
     redirect: (context, state) {
       final isLoggedIn = ref.read(authRepo).isLoggedIn;
-      print("is logged in? $isLoggedIn");
       if (!isLoggedIn) {
         if (state.subloc != LoginScreen.routeUrl &&
             state.subloc != SignUpScreen.routeUrl) {
@@ -28,6 +28,14 @@ final routerProvider = Provider((ref) {
         name: LoginScreen.routeName,
         path: LoginScreen.routeUrl,
         builder: (context, state) => LoginScreen(),
+      ),
+      GoRoute(
+        path: "/:tab(home|post)",
+        name: MainNavigationScreen.routeName,
+        builder: (context, state) {
+          final tab = state.params["tab"]!;
+          return MainNavigationScreen(tab: tab);
+        },
       ),
     ],
   );
