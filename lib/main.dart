@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:tiktokfinalproject/features/authentication/views/sign_up_screen.dart';
 import 'package:tiktokfinalproject/firebase_options.dart';
 
 void main() async {
@@ -7,6 +9,12 @@ void main() async {
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+    ],
   );
 
   runApp(const MyApp());
@@ -18,9 +26,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TikTok Final Project',
-      theme: ThemeData(),
-      home: Scaffold(),
+      themeMode: ThemeMode.light,
+      theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFFece7c6),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Color(0xFFece7c6),
+          )),
+      home: SignUpScreen(),
     );
   }
 }
