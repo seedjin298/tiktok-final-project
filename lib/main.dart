@@ -40,6 +40,7 @@ class MyApp extends ConsumerWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0xFFece7c6),
         ),
+        primaryColor: Color(0xfff3aaf2),
       ),
     );
   }

@@ -3,14 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktokfinalproject/common/appbar/mood_appbar.dart';
+import 'package:tiktokfinalproject/common/button/submit_button.dart';
 import 'package:tiktokfinalproject/constants/box.dart';
+import 'package:tiktokfinalproject/constants/color.dart';
 import 'package:tiktokfinalproject/constants/gaps.dart';
 import 'package:tiktokfinalproject/constants/paddings.dart';
 import 'package:tiktokfinalproject/constants/sizes.dart';
 import 'package:tiktokfinalproject/constants/text.dart';
 import 'package:tiktokfinalproject/features/authentication/view_models/login_view_model.dart';
 import 'package:tiktokfinalproject/features/authentication/views/sign_up_screen.dart';
-import 'package:tiktokfinalproject/features/authentication/views/widgets/auth_button.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeUrl = "/";
@@ -87,7 +88,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     Gaps.v40,
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      cursorColor: Colors.black,
+                      cursorColor: ColorConstants.cursorColor,
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
@@ -98,8 +99,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         fillColor: Colors.white,
                         hintText: "Email",
                         hintStyle: TextStyle(
-                          color: Colors.black26,
-                          fontSize: TextConstants.normalSize,
+                          color: ColorConstants.authHintTextColor,
+                          fontSize: TextConstants.titleSize,
                           fontWeight: TextConstants.normalWeight,
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -110,7 +111,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           borderRadius: BorderRadius.circular(
                               BoxConstants.buttonBorderRadius),
                         ),
-                        focusColor: Colors.black,
+                        focusColor: ColorConstants.focusColor,
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.black,
@@ -137,7 +138,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     Gaps.v12,
                     TextFormField(
-                      cursorColor: Colors.black,
+                      cursorColor: ColorConstants.cursorColor,
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         isDense: true,
@@ -164,8 +165,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         fillColor: Colors.white,
                         hintText: "Password",
                         hintStyle: TextStyle(
-                          color: Colors.black26,
-                          fontSize: TextConstants.normalSize,
+                          color: ColorConstants.authHintTextColor,
+                          fontSize: TextConstants.titleSize,
                           fontWeight: TextConstants.normalWeight,
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -176,7 +177,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           borderRadius: BorderRadius.circular(
                               BoxConstants.buttonBorderRadius),
                         ),
-                        focusColor: Colors.black,
+                        focusColor: ColorConstants.focusColor,
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.black,
@@ -201,7 +202,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     Gaps.v18,
                     GestureDetector(
                       onTap: _onLoginTap,
-                      child: AuthButton(
+                      child: SubmitButton(
                         isSubmit: ref.watch(loginProvider).isLoading,
                         buttonText: "Enter",
                       ),
@@ -210,7 +211,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 GestureDetector(
                   onTap: () => _onAuthButtonTap(context),
-                  child: AuthButton(
+                  child: SubmitButton(
                     buttonText: "Create an account →",
                   ),
                 ),

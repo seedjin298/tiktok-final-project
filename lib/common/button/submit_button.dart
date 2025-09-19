@@ -3,11 +3,11 @@ import 'package:tiktokfinalproject/constants/box.dart';
 import 'package:tiktokfinalproject/constants/paddings.dart';
 import 'package:tiktokfinalproject/constants/text.dart';
 
-class AuthButton extends StatelessWidget {
+class SubmitButton extends StatelessWidget {
   final String buttonText;
   final bool? isSubmit;
 
-  const AuthButton({
+  const SubmitButton({
     super.key,
     required this.buttonText,
     this.isSubmit,
@@ -24,16 +24,13 @@ class AuthButton extends StatelessWidget {
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Color(0xfff3aaf2),
-          border: Border.all(
-            color: Colors.black,
-            width: BoxConstants.borderNormal,
-          ),
+          color: Theme.of(context).primaryColor,
+          border: BoxConstants.boxBorder,
           borderRadius: BorderRadius.circular(
             BoxConstants.buttonBorderRadius,
           ),
           boxShadow: [
-            BoxConstants.shadowRightBottom,
+            BoxConstants.buttonShadowRightBottom,
           ],
         ),
         child: Center(
@@ -42,8 +39,8 @@ class AuthButton extends StatelessWidget {
               : Text(
                   buttonText,
                   style: TextStyle(
-                    fontSize: TextConstants.normalSize,
-                    fontWeight: TextConstants.normalWeight,
+                    fontSize: TextConstants.middleSize,
+                    fontWeight: TextConstants.middleWeight,
                   ),
                 ),
         ),

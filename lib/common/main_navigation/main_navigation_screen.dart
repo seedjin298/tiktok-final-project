@@ -4,9 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktokfinalproject/common/main_navigation/widgets/nav_tab.dart';
 import 'package:tiktokfinalproject/constants/box.dart';
 import 'package:tiktokfinalproject/constants/paddings.dart';
-import 'package:tiktokfinalproject/constants/sizes.dart';
-import 'package:tiktokfinalproject/features/mood/mood_screen.dart';
-import 'package:tiktokfinalproject/features/post/mood_post_screen.dart';
+import 'package:tiktokfinalproject/features/mood/views/mood_screen.dart';
+import 'package:tiktokfinalproject/features/mood/views/mood_post_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const String routeName = "mainNavigation";
