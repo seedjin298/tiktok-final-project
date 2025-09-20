@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktokfinalproject/common/appbar/mood_appbar.dart';
 import 'package:tiktokfinalproject/common/button/submit_button.dart';
 import 'package:tiktokfinalproject/constants/box.dart';
 import 'package:tiktokfinalproject/constants/color.dart';
 import 'package:tiktokfinalproject/constants/gaps.dart';
 import 'package:tiktokfinalproject/constants/paddings.dart';
-import 'package:tiktokfinalproject/constants/sizes.dart';
 import 'package:tiktokfinalproject/constants/text.dart';
 import 'package:tiktokfinalproject/features/authentication/view_models/login_view_model.dart';
 import 'package:tiktokfinalproject/features/authentication/views/sign_up_screen.dart';
@@ -28,7 +26,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
 
   final Map<String, String> _formData = {};
 
-  bool _obscureText = true;
+  bool _isSubmit = false;
 
   void _onScaffoldTap() {
     FocusScope.of(context).unfocus();
@@ -38,15 +36,14 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
     context.pushNamed(SignUpScreen.routeName);
   }
 
-  void _toggleObscureText() {
-    _obscureText = !_obscureText;
-    setState(() {});
-  }
-
   void _onLoginTap() {
+    if (_isSubmit) return;
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
+        setState(() {
+          _isSubmit = true;
+        });
         ref.read(loginProvider.notifier).login(
               _formData["email"]!,
               _formData["password"]!,
@@ -92,6 +89,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       cursorColor: ColorConstants.cursorColor,
+                      autocorrect: false,
+                      enabled: !_isSubmit,
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
@@ -123,6 +122,14 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           borderRadius: BorderRadius.circular(
                               BoxConstants.buttonBorderRadius),
                         ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: BoxConstants.borderThin,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              BoxConstants.buttonBorderRadius),
+                        ),
                       ),
                       validator: (value) {
                         if (value == null) return null;
@@ -142,27 +149,13 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     Gaps.v12,
                     TextFormField(
                       cursorColor: ColorConstants.cursorColor,
-                      obscureText: _obscureText,
+                      obscureText: true,
+                      enabled: !_isSubmit,
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: Paddings.authTextFormFieldHorizontal,
                           vertical: Paddings.authTextFormFieldVertical,
-                        ),
-                        suffix: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleObscureText,
-                              child: FaIcon(
-                                _obscureText
-                                    ? FontAwesomeIcons.eye
-                                    : FontAwesomeIcons.eyeSlash,
-                                color: Colors.grey.shade500,
-                                size: Sizes.size20,
-                              ),
-                            ),
-                          ],
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -182,6 +175,14 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         focusColor: ColorConstants.focusColor,
                         focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: BoxConstants.borderThin,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              BoxConstants.buttonBorderRadius),
+                        ),
+                        disabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.black,
                             width: BoxConstants.borderThin,

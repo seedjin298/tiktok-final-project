@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktokfinalproject/common/appbar/mood_appbar.dart';
 import 'package:tiktokfinalproject/common/button/submit_button.dart';
@@ -8,7 +7,6 @@ import 'package:tiktokfinalproject/constants/box.dart';
 import 'package:tiktokfinalproject/constants/color.dart';
 import 'package:tiktokfinalproject/constants/gaps.dart';
 import 'package:tiktokfinalproject/constants/paddings.dart';
-import 'package:tiktokfinalproject/constants/sizes.dart';
 import 'package:tiktokfinalproject/constants/text.dart';
 import 'package:tiktokfinalproject/features/authentication/view_models/signup_view_model.dart';
 
@@ -26,8 +24,6 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   final Map<String, String> _formData = {};
 
-  bool _obscureText = true;
-
   bool _isSubmit = false;
 
   void _onScaffoldTap() {
@@ -36,11 +32,6 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   void _onAuthButtonTap(BuildContext context) {
     context.pop();
-  }
-
-  void _toggleObscureText() {
-    _obscureText = !_obscureText;
-    setState(() {});
   }
 
   void _onSubmitTap() {
@@ -94,6 +85,8 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       cursorColor: ColorConstants.cursorColor,
+                      enabled: !_isSubmit,
+                      autocorrect: false,
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
@@ -119,6 +112,14 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                         ),
                         focusColor: ColorConstants.focusColor,
                         focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: BoxConstants.borderThin,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              BoxConstants.buttonBorderRadius),
+                        ),
+                        disabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.black,
                             width: BoxConstants.borderThin,
@@ -153,21 +154,6 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                           horizontal: Paddings.authTextFormFieldHorizontal,
                           vertical: Paddings.authTextFormFieldVertical,
                         ),
-                        suffix: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleObscureText,
-                              child: FaIcon(
-                                _obscureText
-                                    ? FontAwesomeIcons.eye
-                                    : FontAwesomeIcons.eyeSlash,
-                                color: Colors.grey.shade500,
-                                size: Sizes.size20,
-                              ),
-                            ),
-                          ],
-                        ),
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Password",
@@ -186,6 +172,14 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
                         ),
                         focusColor: ColorConstants.focusColor,
                         focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: BoxConstants.borderThin,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              BoxConstants.buttonBorderRadius),
+                        ),
+                        disabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.black,
                             width: BoxConstants.borderThin,
