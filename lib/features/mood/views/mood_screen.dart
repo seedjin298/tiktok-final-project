@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktokfinalproject/common/appbar/mood_appbar.dart';
 import 'package:tiktokfinalproject/constants/paddings.dart';
+import 'package:tiktokfinalproject/constants/text.dart';
 import 'package:tiktokfinalproject/features/mood/models.dart/mood_model.dart';
+import 'package:tiktokfinalproject/features/mood/view_models/mood_view_model.dart';
 import 'package:tiktokfinalproject/features/mood/view_models/timeline_view_model.dart';
 import 'package:tiktokfinalproject/features/mood/views/widgets/mood.dart';
 
@@ -12,7 +15,50 @@ class MoodScreen extends ConsumerWidget {
 
   const MoodScreen({super.key});
 
-  void _onMoodLongPress(MoodModel mood) {}
+  void _onMoodLongPress(MoodModel mood, BuildContext context, WidgetRef ref) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(
+          "Delete note",
+          style: TextStyle(
+            fontWeight: TextConstants.titleWeight,
+          ),
+        ),
+        message: Text(
+          "Are you sure you want to do this?",
+          style: TextStyle(
+            fontWeight: TextConstants.normalWeight,
+          ),
+        ),
+        actions: [
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              ref.read(moodProvider.notifier).deleteMood(mood, context);
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Delete",
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          isDefaultAction: true,
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(
+            "Cancel",
+            style: TextStyle(
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,7 +91,8 @@ class MoodScreen extends ConsumerWidget {
                       ),
                       for (var mood in moods)
                         GestureDetector(
-                          onLongPress: () => _onMoodLongPress(mood),
+                          onLongPress: () =>
+                              _onMoodLongPress(mood, context, ref),
                           child: Mood(
                             moodData: mood,
                           ),

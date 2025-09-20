@@ -22,7 +22,7 @@ class MoodViewModel extends AsyncNotifier<void> {
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await _repository.saveThread(
+      await _repository.saveMood(
         MoodModel(
           mood: mood,
           comment: comment,
@@ -37,6 +37,19 @@ class MoodViewModel extends AsyncNotifier<void> {
       );
     } else {
       context.pushReplacement("/home");
+    }
+  }
+
+  Future<void> deleteMood(MoodModel mood, BuildContext context) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _repository.deleteMood(mood);
+    });
+    if (state.hasError) {
+      showFirebaseErrorSnack(
+        context,
+        state.error,
+      );
     }
   }
 }
