@@ -11,8 +11,10 @@ class MoodsRepository {
 
   Future<void> deleteMood(MoodModel data) async {
     final moodsRef = _db.collection("moods");
-    final result =
-        await moodsRef.where("createdAt", isEqualTo: data.createdAt).get();
+    final result = await moodsRef
+        .where("createdAt", isEqualTo: data.createdAt)
+        .where("creatorUid", isEqualTo: data.creatorUid)
+        .get();
     final documentId = result.docs.first.id;
     await moodsRef.doc(documentId).delete();
   }
