@@ -14,6 +14,7 @@ class BoxConstants {
   // size
   static const buttonBorderRadius = Sizes.size40;
   static const moodFormBorderRadius = Sizes.size12;
+  static const moodBorderRadius = Sizes.size16;
   static const moodButtonSize = Sizes.size36;
   static const moodButtonBottom = Sizes.size4;
   static const moodButtonLeft = Sizes.size7;

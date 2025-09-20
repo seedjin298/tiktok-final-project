@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tiktokfinalproject/common/appbar/mood_appbar.dart';
 import 'package:tiktokfinalproject/common/button/submit_button.dart';
 import 'package:tiktokfinalproject/constants/box.dart';
@@ -9,8 +7,7 @@ import 'package:tiktokfinalproject/constants/color.dart';
 import 'package:tiktokfinalproject/constants/gaps.dart';
 import 'package:tiktokfinalproject/constants/paddings.dart';
 import 'package:tiktokfinalproject/constants/text.dart';
-import 'package:tiktokfinalproject/features/mood/view_models/upload_mood_view_model.dart';
-import 'package:tiktokfinalproject/features/mood/views/mood_screen.dart';
+import 'package:tiktokfinalproject/features/mood/view_models/mood_view_model.dart';
 import 'package:tiktokfinalproject/features/mood/views/widgets/mood_button.dart';
 
 List<String> _moodList = [
@@ -58,11 +55,16 @@ class MoodPostScreenState extends ConsumerState<MoodPostScreen> {
     if (_isPost) return;
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      if (_formData["mood"] == null ||
+          _formData["comment"] == null ||
+          _formData["comment"] == "") {
+        return;
+      }
       setState(() {
         _isPost = true;
       });
       ref
-          .read(uploadMoodProvider.notifier)
+          .read(moodProvider.notifier)
           .uploadMood(_formData["mood"]!, _formData["comment"]!, context);
     }
   }
@@ -79,7 +81,10 @@ class MoodPostScreenState extends ConsumerState<MoodPostScreen> {
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
-        appBar: MoodAppBar(),
+        resizeToAvoidBottomInset: false,
+        appBar: MoodAppBar(
+          isLoggedIn: true,
+        ),
         body: Form(
           key: _formKey,
           child: Padding(
@@ -117,6 +122,9 @@ class MoodPostScreenState extends ConsumerState<MoodPostScreen> {
                       ),
                       child: TextFormField(
                         focusNode: _formFocusNode,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        autocorrect: false,
                         cursorColor: ColorConstants.cursorColor,
                         decoration: InputDecoration(
                           hintText: "Write it down here!",
@@ -176,7 +184,7 @@ class MoodPostScreenState extends ConsumerState<MoodPostScreen> {
                     onTap: () => _onPostTap(),
                     child: SubmitButton(
                       buttonText: "Post",
-                      isSubmit: ref.watch(uploadMoodProvider).isLoading,
+                      isSubmit: ref.watch(moodProvider).isLoading,
                     ),
                   ),
                 ),

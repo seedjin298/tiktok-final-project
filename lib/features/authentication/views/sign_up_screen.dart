@@ -63,7 +63,10 @@ class SignUpScreenState extends ConsumerState<SignUpScreen> {
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
-        appBar: MoodAppBar(),
+        resizeToAvoidBottomInset: false,
+        appBar: MoodAppBar(
+          isLoggedIn: false,
+        ),
         body: Form(
           key: _formKey,
           child: Padding(

@@ -7,7 +7,7 @@ import 'package:tiktokfinalproject/features/mood/models.dart/mood_model.dart';
 import 'package:tiktokfinalproject/features/mood/repos/moods_repo.dart';
 import 'package:tiktokfinalproject/utils.dart';
 
-class UploadMoodViewModel extends AsyncNotifier<void> {
+class MoodViewModel extends AsyncNotifier<void> {
   late final MoodsRepository _repository;
 
   @override
@@ -41,6 +41,6 @@ class UploadMoodViewModel extends AsyncNotifier<void> {
   }
 }
 
-final uploadMoodProvider = AsyncNotifierProvider<UploadMoodViewModel, void>(
-  () => UploadMoodViewModel(),
+final moodProvider = AsyncNotifierProvider<MoodViewModel, void>(
+  () => MoodViewModel(),
 );

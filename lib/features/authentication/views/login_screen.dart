@@ -61,7 +61,10 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
-        appBar: MoodAppBar(),
+        resizeToAvoidBottomInset: false,
+        appBar: MoodAppBar(
+          isLoggedIn: false,
+        ),
         body: Form(
           key: _formKey,
           child: Padding(

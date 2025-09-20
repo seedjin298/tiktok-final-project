@@ -14,8 +14,12 @@ class Paddings {
 
   // mood screens
   static const moodScreenHorizontal = Sizes.size32;
+  static const moodScreenTop = Sizes.size44;
+  static const moodScreenBottom = Sizes.size28;
   static const moodTextFormFieldHorizontal = Sizes.size10;
   static const moodTextFormFieldVertical = Sizes.size6;
   static const moodSubmitButtonHorizontal =
       authScreenHorizontal - moodScreenHorizontal;
+  static const moodHorizontal = Sizes.size36;
+  static const moodVertical = Sizes.size10;
 }
